@@ -1,0 +1,21 @@
+<h2 class="animated fadeInDown text-center">Examen técnico</h2>
+<img class="animated animated flipInX mx-auto d-block" src="assets/logo.jpg">
+<form [formGroup]="useForm">
+  <div class="animated fadeInDown md-form">
+    <i class="fa fa-user prefix grey-text"></i>
+    <input
+      type="text"
+      id="gitName"
+      formControlName="gitName"
+      class="form-control"
+      ng-model="nombre">
+    <label for="gitName">Escribe el nombre a buscar</label>
+  </div>
+  <div class="animated fadeInDown text-center mt-4">
+    <a class="btn btn-info btn-lg" ng-click="validarNombre()">Buscar</a>
+  </div>
+  <div *ngIf="useForm.controls.gitName.invalid && (useForm.controls.gitName.dirty || useForm.controls.gitName.touched)"  class="animated fadeInDown alert alert-danger" role="alert">
+
+    <strong *ngIf="useForm.controls.gitName.errors?.['pattern'] && (useForm.controls.gitName.dirty || useForm.controls.gitName.touched)"> puto</strong>
+  </div>
+</form>
