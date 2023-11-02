@@ -126,7 +126,7 @@ export class SearchResultsComponent implements OnInit {
   }
 
   redirectToUserDetails(user: any) {
-    if (user.score >= 0) {
+    if (user.score >= 30) {
       this.alert2Visible = false;
       this.router.navigate(['details', user.login]);
     } else {
