@@ -69,3 +69,20 @@ a {
 a:hover {
   text-decoration: underline;
 }
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+.fade-in-out {
+  animation: fadeIn 0.9s ease-in-out;
+}
+
+.table-fade-in-out {
+  animation: fadeIn 0.9s ease-in-out;
+}
