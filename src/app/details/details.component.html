@@ -1,0 +1,84 @@
+<div class="user-profile">
+  <div class="user-header">
+    <img class="user-avatar" [src]="user?.avatar_url" alt="Avatar" />
+    <h1 class="user-name">{{ user?.name }}</h1>
+    <p class="user-login">{{ user?.login }}</p>
+    <p class="user-bio">{{ user?.bio }}</p>
+  </div>
+  <div class="user-details">
+    <div class="user-detail">
+      <i class="icon fas fa-building"></i>
+      <p>{{ user?.company || labelMessage.notAvailable }}</p>
+    </div>
+    <div class="user-detail">
+      <i class="icon fas fa-map-marker-alt"></i>
+      <p>{{ user?.location || labelMessage.notAvailable }}</p>
+    </div>
+    <div class="user-detail">
+      <i class="icon fas fa-envelope"></i>
+      <p>{{ user?.email || labelMessage.notAvailable }}</p>
+    </div>
+    <div class="user-detail">
+      <i class="fa-solid fa-rss"></i>
+      <p>{{ user?.blog || labelMessage.notAvailable }}</p>
+    </div>
+    <div class="user-detail">
+      <i class="fa-solid fa-users"></i>
+      <p>
+        {{ labelMessage.follower }}
+        {{ user?.followers || labelMessage.notAvailable }}
+      </p>
+    </div>
+    <div class="user-detail">
+      <i class="fa-solid fa-user-group"></i>
+      <p>
+        {{ labelMessage.follow }}
+        {{ user?.following || labelMessage.notAvailable }}
+      </p>
+    </div>
+    <div class="user-detail">
+      <i class="fa-solid fa-folder-open"></i>
+      <p>{{ user?.hireable || labelMessage.notAvailable }}</p>
+    </div>
+    <div class="user-detail">
+      <i class="fa-solid fa-bug"></i>
+      <p>
+        {{ labelMessage.gists }}
+        {{ user?.public_gists || labelMessage.notAvailable }}
+      </p>
+    </div>
+    <div class="user-detail">
+      <i class="fa-solid fa-code-compare"></i>
+      <p>
+        {{ labelMessage.repositories }}
+        {{ user?.public_repos || labelMessage.notAvailable }}
+      </p>
+    </div>
+    <div class="user-detail">
+      <i class="fa-brands fa-square-x-twitter"></i>
+      <p>{{ user?.twitter_username || labelMessage.notAvailable }}</p>
+    </div>
+    <div class="user-detail">
+      <i class="fa-solid fa-user"></i>
+      <p>{{ user?.type || labelMessage.notAvailable }}</p>
+    </div>
+    <div class="user-detail">
+      <i class="fa-solid fa-lock"></i>
+      <p>{{ user?.site_admin || labelMessage.notAvailable }}</p>
+    </div>
+    <div class="user-detail">
+      <i class="fab fa-github"> </i>
+      <a [href]="user?.html_url">{{
+        user?.login || labelMessage.notAvailable
+      }}</a>
+    </div>
+  </div>
+</div>
+<div class="mt-4 text-center" *ngIf="error">
+  <p
+    class="animated bounceIn h4 mb-4"
+    style="font-family: 'Arial', sans-serif; color: #ff0000"
+  >
+    {{ errorMessage.error }}
+  </p>
+</div>

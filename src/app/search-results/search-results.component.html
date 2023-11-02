@@ -1,21 +1,126 @@
-<h2 class="animated fadeInDown text-center">Examen técnico</h2>
-<img class="animated animated flipInX mx-auto d-block" src="assets/logo.jpg">
-<form [formGroup]="useForm">
-  <div class="animated fadeInDown md-form">
-    <i class="fa fa-user prefix grey-text"></i>
-    <input
-      type="text"
-      id="gitName"
-      formControlName="gitName"
-      class="form-control"
-      ng-model="nombre">
-    <label for="gitName">Escribe el nombre a buscar</label>
-  </div>
-  <div class="animated fadeInDown text-center mt-4">
-    <a class="btn btn-info btn-lg" ng-click="validarNombre()">Buscar</a>
-  </div>
-  <div *ngIf="useForm.controls.gitName.invalid && (useForm.controls.gitName.dirty || useForm.controls.gitName.touched)"  class="animated fadeInDown alert alert-danger" role="alert">
+<div class="container text-center mt-5">
+  <h2>MaxiGlobal</h2>
+</div>
 
-    <strong *ngIf="useForm.controls.gitName.errors?.['pattern'] && (useForm.controls.gitName.dirty || useForm.controls.gitName.touched)"> puto</strong>
+<form [formGroup]="form" (ngSubmit)="searchUsers()" class="mt-4">
+  <div>
+    <div class="form-control-wrapper">
+      <input
+        type="text"
+        class="form-control"
+        name="nombre"
+        formControlName="name"
+        [(ngModel)]="nombre"
+        placeholder="Enter the name to search"
+      />
+    </div>
+  </div>
+  <div class="text-center mt-4">
+    <button type="submit">Search</button>
+  </div>
+
+  <div class="text-center mt-4">
+    <div
+      *ngIf="
+        form.controls['name'].invalid &&
+        (form.controls['name'].dirty || form.controls['name'].touched) &&
+        nombre.length > 0
+      "
+      class="alert"
+      role="alert"
+    >
+      <strong *ngIf="form.controls['name'].hasError('minlength')">
+        {{ errorMessage.minLength }}
+      </strong>
+    </div>
+
+    <div
+      *ngIf="nombre.toLowerCase() == 'maxiglobal'"
+      class="alert"
+      role="alert"
+    >
+      <strong> {{ errorMessage.invalidName }} </strong>
+    </div>
+
+    <div
+      *ngIf="
+        (form.controls['name'].dirty || form.controls['name'].touched) &&
+        nombre.length == 0
+      "
+      class="alert"
+      role="alert"
+    >
+      <strong> {{ errorMessage.required }} </strong>
+    </div>
+    <div *ngIf="alertVisible" class="alert" role="alert">
+      <strong> {{ errorMessage.noUsers }} </strong>
+    </div>
   </div>
 </form>
+
+<div class="text-center mt-5">
+  <div *ngIf="loading" class="animated bounceIn">
+    <p class="h4 mb-4" style="font-family: 'Arial', sans-serif; color: #333">
+      {{ labelMessage.searching }}
+    </p>
+    <div class="spinner-border" role="status" style="color: #333">
+      <span class="sr-only">{{ labelMessage.loading }}</span>
+    </div>
+  </div>
+</div>
+
+<div class="mt-4 text-center" *ngIf="error">
+  <p
+    class="animated bounceIn h4 mb-4"
+    style="font-family: 'Arial', sans-serif; color: #ff0000"
+  >
+    {{ errorMessage.error }}
+  </p>
+</div>
+
+<h2 *ngIf="tableVisible" class="text-center mt-4" [@tableEnter]>
+  {{ labelMessage.selectUser }}
+</h2>
+
+<div class="card" *ngIf="tableVisible" [@tableEnter]>
+  <div class="card-body">
+    <div *ngIf="alert2Visible" class="alert text-center mt-4" role="alert">
+      <strong> {{ messageTable }} </strong>
+    </div>
+    <table class="table table-hover table-responsive-md table-fixed">
+      <thead>
+        <tr>
+          <th>{{ labelMessage.number }}</th>
+          <th>{{ labelMessage.login }}</th>
+          <th>{{ labelMessage.id }}</th>
+          <th>{{ labelMessage.score }}</th>
+        </tr>
+      </thead>
+      <tbody>
+        <ng-container *ngFor="let usr of usuarios; let i = index">
+          <tr (click)="redirectToUserDetails(usr)">
+            <th scope="row">{{ i + 1 }}</th>
+            <td
+              class="puntero"
+              style="font-family: 'Arial', sans-serif; color: #007bff"
+            >
+              {{ usr.login }}
+            </td>
+            <td class="puntero">{{ usr.id }}</td>
+            <td class="puntero">{{ usr.score }}</td>
+          </tr>
+        </ng-container>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<h2 *ngIf="tableVisible" class="text-center mt-4">
+  {{ labelMessage.followers }}
+</h2>
+
+<div *ngIf="showGraph" class="row mt-4">
+  <div class="col-md-12">
+    <app-chart></app-chart>
+  </div>
+</div>
