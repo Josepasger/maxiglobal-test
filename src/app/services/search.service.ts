@@ -1,20 +1,19 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
+import { URL } from '../utilities/messages';
 
 @Injectable({
   providedIn: 'root',
 })
 export class SearchService {
-  private apiUrl = [
-    'https://api.github.com/search/users?q=',
-    'https://api.github.com/users/',
-  ];
+
+  private url = URL;
 
   constructor(private http: HttpClient) {}
 
   fetchUsers(name: string): Observable<any> {
-    return this.http.get(`${this.apiUrl[0] + name}`);
+    return this.http.get(`${this.url.search + name}`);
   }
 
   fetchFollowers(user: any) {
@@ -22,6 +21,6 @@ export class SearchService {
   }
 
   fetchUserData(name: string) {
-    return this.http.get(`${this.apiUrl[1] + name}`);
+    return this.http.get(`${this.url.detail + name}`);
   }
 }

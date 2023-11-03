@@ -41,6 +41,7 @@ export class SearchResultsComponent implements OnInit {
   followersTotal: number[] = [];
   chartData: any = null;
   nombre: string = '';
+  searchedName: string = '';
   messageTable: string = '';
   errorMessage: any = ERROR_MESSAGES;
   labelMessage: any = LABELS_MESSAGES;
@@ -59,6 +60,13 @@ export class SearchResultsComponent implements OnInit {
     });
   }
 
+  validateName() {
+    if (this.searchedName.trim() !== '' && this.searchedName !== this.nombre) {
+      this.showGraph = false;
+      this.tableVisible = false;
+    }
+  }
+
   get name() {
     return this.form.get('name');
   }
@@ -73,6 +81,7 @@ export class SearchResultsComponent implements OnInit {
     }
 
     const name = this.name?.value;
+    this.searchedName = name;
     this.loading = true;
     this.error = false;
     this.tableVisible = false;

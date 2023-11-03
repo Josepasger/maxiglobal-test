@@ -6,7 +6,7 @@ export const ERROR_MESSAGES = {
   error: 'An error occurred, please try again',
   getUserError:
     'An error occurred while getting the followers. (Graph will not be shown)',
-  cantConsultUser: "User can't be consulted due the score is less than 30",
+  cantConsultUser: "User can't be consulted due the score is less than 30"
 };
 
 export const LABELS_MESSAGES = {
@@ -26,5 +26,10 @@ export const LABELS_MESSAGES = {
   follower: 'Followers: ',
   follow: 'Follow: ',
   gists: 'Gists: ',
-  repositories: 'Repos: ',
+  repositories: 'Repos: '
 };
+
+export const URL = {
+  search: 'https://api.github.com/search/users?q=',
+  detail: 'https://api.github.com/users/'
+}
